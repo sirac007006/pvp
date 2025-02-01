@@ -35,19 +35,24 @@ $(function() {
 
     switch (e.keyCode) {
       case 39: // Strelica na desno
-        $(plavi).css('right', currentRight - move + 'px'); // Smanji 'right' za 10px
+        $(plavi).css('right', currentRight - move + 'px');
+        $(".plavi img").attr("src", "/spongebob_flipped.png");
         break;
       case 37: // Strelica na levo
-        $(plavi).css('right', currentRight + move + 'px'); // Povećaj 'right' za 10px
+        $(plavi).css('right', currentRight + move + 'px');
+        $(".plavi img").attr("src", "/spongebob.png"); // Povećaj 'right' za 10px
         break;
       case 68: // D
         $(crveni).css('right', currentRightr - move + 'px'); // Smanji 'right' za 10px
+        $(".crveni img").attr("src", "/marioleft.png");
         break;
       case 65: // A
         $(crveni).css('right', currentRightr + move + 'px'); // Povećaj 'right' za 10px
+        $(".crveni img").attr("src", "/mario_flipped.png");
         break;
       case 87: // W
         $(crveni).css('top', currentUpr - move + 'px'); // Smanji 'top' za 10px
+    
         break;
       case 83: // S
         $(crveni).css('top', currentUpr + move + 'px'); // Povećaj 'top' za 10px

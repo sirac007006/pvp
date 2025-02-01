@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trka</title>
+    <title>PVP</title>
 </head>
 <body>
     <div class="ekran">
-        <h1><span class="h1crveni">CRVENI</span> VS <span class="h1plavi">PLAVI</span></h1>
+        <h1><span class="h1crveni">MARIO</span> VS <span class="h1plavi">SUNDJER BOB</span></h1>
         <div class="container">
             <div class="crveni">
              <p>HP:10</p>
+             <img src="marioleft.png">
             </div>
             <div class="plavi">
                 <p>HP:10</p>
+                <img src="spongebob.png">
             </div>
         </div>
         <div class="divringa"><div class="ring"></div></div>
@@ -38,7 +40,7 @@
             text-align: center;
         }
         .h1plavi{
-            color: blue;
+            color: yellow;
         }
         .h1crveni{
             color: red;
@@ -53,18 +55,23 @@
             margin-top: 200px;
         }
         .plavi{
-            background-color: blue;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+            text-align: center;
+         }
+        .plavi img {
             width: 80px;
             height: 80px;
-            margin-right: 10px;
-            z-index: 1;
         }
         .crveni{
-            background-color: red;
+            margin-left: 40px;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+            text-align: center;
+         }
+        .crveni img {
             width: 80px;
             height: 80px;
-            margin-left: 10px;
-            z-index: 1;
         }
         .divringa{
             position: absolute;

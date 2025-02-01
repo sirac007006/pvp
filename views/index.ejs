@@ -8,14 +8,17 @@
 <body>
     <h1><span class="h1plavi">PLAVI</span> VS <span class="h1crveni">CRVENI</span></h1>
     <div class="container">
-        <div class="staza 1">
-            <div class="plavi"></div>
+        <div class="plavi">
+            <p>HP:10</p>
         </div>
-        <div class="staza 2">
-            <div class="crveni"></div>
+        <div class="crveni">
+            <p>HP:10</p>
         </div>
     </div>
     <style>
+        body{
+            background-color: gray;
+        }
         h1{
             text-align: center;
         }
@@ -25,16 +28,14 @@
         .h1crveni{
             color: red;
         }
-        .container{
-            display: grid;
-            grid-template-columns: 99vw;
-            grid-template-rows: 200px 200px;
-            gap: 10px;
+        p{
+            text-align: center;
+            padding-top:30px;
         }
-        .staza{
-            background-color: gray;
+        .container{
             display: flex;
-            align-items: center;
+            justify-content: space-between;
+            margin-top: 200px;
         }
         .plavi{
             background-color: blue;
@@ -46,9 +47,6 @@
             background-color: red;
             width: 80px;
             height: 80px;
-            margin-left: 10px;
-        }
-        p {
             margin-left: 10px;
         }
     </style>

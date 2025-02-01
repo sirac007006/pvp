@@ -2,6 +2,8 @@ $(function() {
   var plavi = $(".plavi");
   var crveni = $(".crveni");
   var move = 20;
+  var plavihp = 10;
+  var crvenihp = 10;
 
   $(document).keydown(function(e) {
     var currentRight = parseInt($(plavi).css('right')) || 0; // Trenutna vrednost 'right'
@@ -37,6 +39,16 @@ $(function() {
         break;
       case 40: // Strelica na dole
         $(plavi).css('top', currentUp + move + 'px'); // Povećaj 'top' za 10px
+        break;
+      case 76:
+        crvenihp -= 1;
+        console.log(crvenihp);
+        $(".crveni p").text("HP:" + crvenihp);
+        break;
+      case 88:
+        plavihp -= 1;
+        console.log(plavihp);
+        $(".plavi p").text("HP:" + plavihp);
         break;
     }
 

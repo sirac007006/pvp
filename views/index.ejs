@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trka</title>
+</head>
+<body>
+    <h1><span class="h1plavi">PLAVI</span> VS <span class="h1crveni">CRVENI</span></h1>
+    <div class="container">
+        <div class="staza 1">
+            <div class="plavi"></div>
+        </div>
+        <div class="staza 2">
+            <div class="crveni"></div>
+        </div>
+    </div>
+    <style>
+        h1{
+            text-align: center;
+        }
+        .h1plavi{
+            color: blue;
+        }
+        .h1crveni{
+            color: red;
+        }
+        .container{
+            display: grid;
+            grid-template-columns: 99vw;
+            grid-template-rows: 200px 200px;
+            gap: 10px;
+        }
+        .staza{
+            background-color: gray;
+            display: flex;
+            align-items: center;
+        }
+        .plavi{
+            background-color: blue;
+            width: 80px;
+            height: 80px;
+            margin-left: 10px;
+        }
+        .crveni{
+            background-color: red;
+            width: 80px;
+            height: 80px;
+            margin-left: 10px;
+        }
+        p {
+            margin-left: 10px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="/script.js"></script>
+</body>
+</html>

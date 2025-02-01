@@ -1,0 +1,18 @@
+{
+  "name": "boss-igrica-js",
+  "version": "1.0.0",
+  "description": "Igrica pvp",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Marko",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "jquery": "^3.7.1"
+  }
+}

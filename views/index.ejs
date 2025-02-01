@@ -6,18 +6,33 @@
     <title>Trka</title>
 </head>
 <body>
-    <h1><span class="h1plavi">PLAVI</span> VS <span class="h1crveni">CRVENI</span></h1>
-    <div class="container">
-        <div class="plavi">
-            <p>HP:10</p>
+    <div class="ekran">
+        <h1><span class="h1crveni">CRVENI</span> VS <span class="h1plavi">PLAVI</span></h1>
+        <div class="container">
+            <div class="crveni">
+             <p>HP:10</p>
+            </div>
+            <div class="plavi">
+                <p>HP:10</p>
+            </div>
         </div>
-        <div class="crveni">
-            <p>HP:10</p>
-        </div>
+        <div class="divringa"><div class="ring"></div></div>
     </div>
     <style>
-        body{
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+        body {
             background-color: gray;
+        }
+        .ekran {
+            width: 100vw;
+            height: 100vh;
+            border: 20px solid red;
+            box-sizing: border-box;
         }
         h1{
             text-align: center;
@@ -41,14 +56,27 @@
             background-color: blue;
             width: 80px;
             height: 80px;
-            margin-left: 10px;
+            margin-right: 10px;
+            z-index: 1;
         }
         .crveni{
             background-color: red;
             width: 80px;
             height: 80px;
             margin-left: 10px;
+            z-index: 1;
         }
+        .divringa{
+            position: absolute;
+            top: 130px;
+            left: 480px;
+        }
+        .ring{
+            width: 400px;
+            height: 400px;
+            background-color: white;
+        }
+
     </style>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="/script.js"></script>

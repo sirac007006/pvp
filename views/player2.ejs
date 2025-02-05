@@ -25,8 +25,9 @@
     </style>
 </head>
 <body>
-    <h1>PLAYER 1 CHOOSE YOUR CHARACTER:</h1>
-    <form method="post" action="/player1">
+    <h1><%=player1.toUpperCase()%> VS</h1>
+    <form method="post" action="/player2">
+        <input type="hidden" name="player1" value="<%= player1 %>">
         <button type="submit" name="character" value="mario"><img src="mario_flipped.png"></button>
         <button type="submit" name="character" value="spongebob"><img src="spongebob_flipped.png"></button>
         <button type="submit" name="character" value="patrick"><img src="patrick_flipped.png"></button>

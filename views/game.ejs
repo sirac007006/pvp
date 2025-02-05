@@ -1,4 +1,89 @@
-$(function() {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PVP</title>
+</head>
+<body>
+    <div class="ekran">
+        <h1><span><%=player1.toUpperCase()%></span> VS <span><%=player2.toUpperCase()%></span></h1>
+        <%var player1img = player1 + "_flipped.png"%>
+        <%var player2img = player2 + ".png"%>
+        <div class="container">
+            <div class="crveni">
+             <p>HP:10</p>
+             <img src=<%=player1img%>>
+            </div>
+            <div class="plavi">
+                <p>HP:10</p>
+                <img src= <%=player2img%>>
+            </div>
+        </div>
+        <div class="divringa"><div class="ring"></div></div>
+    </div>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+        body {
+            background-color: gray;
+        }
+        .ekran {
+            width: 100vw;
+            height: 100vh;
+            border: 20px solid red;
+            box-sizing: border-box;
+        }
+        h1{
+            text-align: center;
+        }
+        p{
+            text-align: center;
+            padding-top:30px;
+        }
+        .container{
+            display: flex;
+            justify-content: space-between;
+            margin-top: 200px;
+        }
+        .plavi{
+            z-index: 1;
+            transform: translate(-50%, -50%);
+            text-align: center;
+         }
+        .plavi img {
+            width: 80px;
+            height: 80px;
+        }
+        .crveni{
+            margin-left: 40px;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+            text-align: center;
+         }
+        .crveni img {
+            width: 80px;
+            height: 80px;
+        }
+        .divringa{
+            position: absolute;
+            top: 130px;
+            left: 480px;
+        }
+        .ring{
+            width: 400px;
+            height: 400px;
+            background-color: white;
+        }
+
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script>
+        $(function() {
   var plavi = $(".plavi");
   var crveni = $(".crveni");
   var ring = $(".ring");
@@ -36,19 +121,19 @@ $(function() {
     switch (e.keyCode) {
       case 39: // Strelica na desno
         $(plavi).css('right', currentRight - move + 'px');
-        $(".plavi img").attr("src", "/spongebob_flipped.png");
+        $(".plavi img").attr("src", "/" + player2 + "_flipped.png");
         break;
       case 37: // Strelica na levo
         $(plavi).css('right', currentRight + move + 'px');
-        $(".plavi img").attr("src", "/spongebob.png"); // Povećaj 'right' za 10px
+        $(".plavi img").attr("src", "/" + player2 + ".png"); // Povećaj 'right' za 10px
         break;
       case 68: // D
         $(crveni).css('right', currentRightr - move + 'px'); // Smanji 'right' za 10px
-        $(".crveni img").attr("src", "/marioleft.png");
+        $(".crveni img").attr("src", "/" + player1 + "_flipped.png");
         break;
       case 65: // A
         $(crveni).css('right', currentRightr + move + 'px'); // Povećaj 'right' za 10px
-        $(".crveni img").attr("src", "/mario_flipped.png");
+        $(".crveni img").attr("src", "/" + player1 + ".png");
         break;
       case 87: // W
         $(crveni).css('top', currentUpr - move + 'px'); // Smanji 'top' za 10px
@@ -96,3 +181,6 @@ $(function() {
     }
   });
 });
+    </script>
+</body>
+</html>

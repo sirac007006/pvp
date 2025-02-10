@@ -12,16 +12,17 @@
         <%var player2img = player2 + ".png"%>
         <div class="container">
             <div class="crveni">
-             <p>HP:10</p>
+             <p id="hp-crveni">HP:10</p>
              <img src=<%=player1img%>>
             </div>
             <div class="plavi">
-                <p>HP:10</p>
+                <p id="hp-plavi">HP:10</p>
                 <img src= <%=player2img%>>
             </div>
         </div>
         <div class="divringa"><div class="ring"></div></div>
     </div>
+    
     <style>
         body, html {
             margin: 0;
@@ -37,150 +38,171 @@
             height: 100vh;
             border: 20px solid red;
             box-sizing: border-box;
+            position: relative;
         }
-        h1{
+        h1 {
             text-align: center;
         }
-        p{
+        p {
             text-align: center;
-            padding-top:30px;
+            padding-top: 30px;
         }
-        .container{
+        .container {
             display: flex;
             justify-content: space-between;
             margin-top: 200px;
         }
-        .plavi{
-            z-index: 1;
-            transform: translate(-50%, -50%);
+        .plavi, .crveni {
+            position: relative;
             text-align: center;
-         }
-        .plavi img {
+            z-index: 1;
+        }
+        .plavi img, .crveni img {
             width: 80px;
             height: 80px;
         }
-        .crveni{
-            margin-left: 40px;
-            z-index: 1;
-            transform: translate(-50%, -50%);
-            text-align: center;
-         }
-        .crveni img {
-            width: 80px;
-            height: 80px;
-        }
-        .divringa{
+        .divringa {
             position: absolute;
             top: 130px;
             left: 480px;
         }
-        .ring{
+        .ring {
             width: 400px;
             height: 400px;
             background-color: white;
         }
-
+        .bullet {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: black;
+            border-radius: 50%;
+        }
     </style>
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script>
         $(function() {
-  var plavi = $(".plavi");
-  var crveni = $(".crveni");
-  var ring = $(".ring");
-  var move = 20;
-  var plavihp = 10;
-  var crvenihp = 10;
+            var plavi = $(".plavi");
+            var crveni = $(".crveni");
+            var move = 20;
+            var plavihp = 10;
+            var crvenihp = 10;
+            var bulletSpeed = 10;
 
-  $(document).keydown(function(e) {
-    var currentRight = parseInt($(plavi).css('right')) || 0; // Trenutna vrednost 'right'
-    $(plavi).css('position', 'relative'); // Osiguraj da je pozicija 'relative'
+            $(document).keydown(function(e) {
+                var plaviLeft = parseInt(plavi.css('right')) || 0;
+                var plaviTop = parseInt(plavi.css('top')) || 0;
+                var crveniLeft = parseInt(crveni.css('right')) || 0;
+                var crveniTop = parseInt(crveni.css('top')) || 0;
 
-    var currentRightr = parseInt($(crveni).css('right')) || 0; // Trenutna vrednost 'right'
-    $(crveni).css('position', 'relative'); // Osiguraj da je pozicija 'relative'
+                switch (e.keyCode) {
+                    case 39: // Strelica desno (plavi)
+                        plavi.css('right', plaviLeft - move + 'px');
+                        $(".plavi img").attr("src", '<%=player2%>' + "_flipped.png");
+                        break;
+                    case 37: // Strelica levo (plavi)
+                        plavi.css('right', plaviLeft + move + 'px');
+                        $(".plavi img").attr("src", '<%=player2%>' + ".png");
+                        break;
+                    case 38: // Strelica gore (plavi)
+                        plavi.css('top', plaviTop - move + 'px');
+                        break;
+                    case 40: // Strelica dole (plavi)
+                        plavi.css('top', plaviTop + move + 'px');
+                        break;
+                    case 68: // D (crveni)
+                        crveni.css('right', crveniLeft - move + 'px');
+                        $(".crveni img").attr("src", '<%=player1%>' + "_flipped.png");
+                        break;
+                    case 65: // A (crveni)
+                        crveni.css('right', crveniLeft + move + 'px');
+                        $(".crveni img").attr("src", '<%=player1%>' + ".png");
+                        break;
+                    case 87: // W (crveni)
+                        crveni.css('top', crveniTop - move + 'px');
+                        break;
+                    case 83: // S (crveni)
+                        crveni.css('top', crveniTop + move + 'px');
+                        break;
+                    case 77: // M (plavi puca)
+                        shootBullet(plavi, "left");
+                        break;
+                    case 71: // G (crveni puca)
+                        shootBullet(crveni, "right");
+                        break;
+                }
+            });
 
-    var currentUp = parseInt($(plavi).css('top')) || 0; // Trenutna vrednost 'top'
-    var currentUpr = parseInt($(crveni).css('top')) || 0; // Trenutna vrednost 'top'
+            function shootBullet(player, direction) {
+                var bullet = $("<div class='bullet'></div>");
+                $(".ekran").append(bullet);
 
-    var ringOffset = ring.offset();
-    var ringWidth = ring.width();
-    var ringHeight = ring.height();
+                var playerOffset = player.offset();
+                bullet.css({
+                    top: playerOffset.top + 30 + "px",
+                    left: playerOffset.left + (direction === "left" ? -10 : 80) + "px"
+                });
 
-    var plaviOffset = plavi.offset();
-    var crveniOffset = crveni.offset();
+                var interval = setInterval(function() {
+                    var bulletOffset = bullet.offset();
+                    if (!bulletOffset) return;
 
-    var isPlaviInRing = plaviOffset.left >= ringOffset.left &&
-                        plaviOffset.top >= ringOffset.top &&
-                        plaviOffset.left + plavi.width() <= ringOffset.left + ringWidth &&
-                        plaviOffset.top + plavi.height() <= ringOffset.top + ringHeight;
+                    if (direction === "left") {
+                        bullet.css("left", bulletOffset.left - bulletSpeed + "px");
+                    } else {
+                        bullet.css("left", bulletOffset.left + bulletSpeed + "px");
+                    }
 
-    var isCrveniInRing = crveniOffset.left >= ringOffset.left &&
-                         crveniOffset.top >= ringOffset.top &&
-                         crveniOffset.left + crveni.width() <= ringOffset.left + ringWidth &&
-                         crveniOffset.top + crveni.height() <= ringOffset.top + ringHeight;
+                    if (checkCollision(bullet, direction === "left" ? crveni : plavi)) {
+                        if (direction === "left") {
+                            crvenihp -= 1;
+                            $("#hp-crveni").text("HP: " + crvenihp);
+                        } else {
+                            plavihp -= 1;
+                            $("#hp-plavi").text("HP: " + plavihp);
+                        }
+                        bullet.remove();
+                        clearInterval(interval);
+                        checkGameOver();
+                    }
 
-    switch (e.keyCode) {
-      case 39: // Strelica na desno
-        $(plavi).css('right', currentRight - move + 'px');
-        $(".plavi img").attr("src", "/" + player2 + "_flipped.png");
-        break;
-      case 37: // Strelica na levo
-        $(plavi).css('right', currentRight + move + 'px');
-        $(".plavi img").attr("src", "/" + player2 + ".png"); // Povećaj 'right' za 10px
-        break;
-      case 68: // D
-        $(crveni).css('right', currentRightr - move + 'px'); // Smanji 'right' za 10px
-        $(".crveni img").attr("src", "/" + player1 + "_flipped.png");
-        break;
-      case 65: // A
-        $(crveni).css('right', currentRightr + move + 'px'); // Povećaj 'right' za 10px
-        $(".crveni img").attr("src", "/" + player1 + ".png");
-        break;
-      case 87: // W
-        $(crveni).css('top', currentUpr - move + 'px'); // Smanji 'top' za 10px
-    
-        break;
-      case 83: // S
-        $(crveni).css('top', currentUpr + move + 'px'); // Povećaj 'top' za 10px
-        break;
-      case 38: // Strelica na gore
-        $(plavi).css('top', currentUp - move + 'px'); // Smanji 'top' za 10px
-        break;
-      case 40: // Strelica na dole
-        $(plavi).css('top', currentUp + move + 'px'); // Povećaj 'top' za 10px
-        break;
-      case 76: // L
-        if (isPlaviInRing && isCrveniInRing) {
-          crvenihp -= 1;
-          console.log(crvenihp);
-          $(".crveni p").text("HP:" + crvenihp);
-        }
-        break;
-      case 88: // X
-        if (isPlaviInRing && isCrveniInRing) {
-          plavihp -= 1;
-          console.log(plavihp);
-          $(".plavi p").text("HP:" + plavihp);
-        }
-        break;
-    }
+                    if (bulletOffset.left < 0 || bulletOffset.left > $(window).width()) {
+                        bullet.remove();
+                        clearInterval(interval);
+                    }
+                }, 30);
+            }
 
-    // Provera da li je crveni izašao izvan granica ekrana
-    if (crveniOffset.left < 0 || crveniOffset.top < 0 || 
-        crveniOffset.left + crveni.width() > $(window).width() || 
-        crveniOffset.top + crveni.height() > $(window).height()) {
-      crvenihp = 0;
-      $(".crveni p").text("HP:" + crvenihp);
-    }
+            function checkCollision(bullet, player) {
+                var bulletOffset = bullet.offset();
+                var playerOffset = player.offset();
 
-    // Provera da li je plavi izašao izvan granica ekrana
-    if (plaviOffset.left < 0 || plaviOffset.top < 0 || 
-        plaviOffset.left + plavi.width() > $(window).width() || 
-        plaviOffset.top + plavi.height() > $(window).height()) {
-      plavihp = 0;
-      $(".plavi p").text("HP:" + plavihp);
-    }
-  });
-});
+                return (
+                    bulletOffset.left < playerOffset.left + player.width() &&
+                    bulletOffset.left + bullet.width() > playerOffset.left &&
+                    bulletOffset.top < playerOffset.top + player.height() &&
+                    bulletOffset.top + bullet.height() > playerOffset.top
+                );
+            }
+
+            function checkGameOver() {
+                if (plavihp <= 0) {
+                    alert("Crveni pobedjuje!");
+                    resetGame();
+                } else if (crvenihp <= 0) {
+                    alert("Plavi pobedjuje!");
+                    resetGame();
+                }
+            }
+
+            function resetGame() {
+                plavihp = 10;
+                crvenihp = 10;
+                $("#hp-plavi").text("HP: 10");
+                $("#hp-crveni").text("HP: 10");
+            }
+        });
     </script>
 </body>
 </html>
